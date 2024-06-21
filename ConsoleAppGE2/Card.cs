@@ -9,6 +9,9 @@ namespace ConsoleAppGE2
 {
     internal class Card
     {
+        // フォームの数
+        const int FormCntMax = 4;
+
         // 入力可能範囲の設定
         const int inputNumMin = 1;
         const int inputNumMax = 13;
@@ -19,7 +22,8 @@ namespace ConsoleAppGE2
         /// <summary>
         /// コンストラクター
         /// </summary>
-        public Card() { 
+        public Card()
+        {
             numbers = new List<int>();
         }
 
@@ -27,27 +31,31 @@ namespace ConsoleAppGE2
         /// 入力処理
         /// </summary>
         /// <param name="inputNum">入力情報</param>
-        public void InputNumbers(int i)
+        public void InputNumbers()
         {
-            while (true)
+            for (int i = 0; i < FormCntMax; i++)
             {
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write("[{0}]{1}～{2}の数字を入力してください  >> ",i, inputNumMin,inputNumMax);
-                bool isSuccess = int.TryParse(Console.ReadLine(), out int inputNum);
+                while (true)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("[{0}]{1}～{2}の数字を入力してください  >> ", i, inputNumMin, inputNumMax);
+                    bool isSuccess = int.TryParse(Console.ReadLine(), out int inputNum);
 
-                // 正しく入力できている場合
-                if (isSuccess && inputNum >= inputNumMin && inputNum <= inputNumMax)
-                {
-                    numbers.Add(inputNum);
-                    break;
-                }
-                // 入力内容に異常がある場合
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("\n*** ERROR ***\n");
+                    // 正しく入力できている場合
+                    if (isSuccess && inputNum >= inputNumMin && inputNum <= inputNumMax)
+                    {
+                        numbers.Add(inputNum);
+                        break;
+                    }
+                    // 入力内容に異常がある場合
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("\n*** ERROR ***\n");
+                    }
                 }
             }
+
         }
 
         /// <summary>
@@ -98,6 +106,8 @@ namespace ConsoleAppGE2
             }
 
             Console.ForegroundColor = ConsoleColor.Yellow;
+            Random rnd = new Random();
+            Console.WriteLine("\nランダムに選ばれたカード：" + numbers[rnd.Next(1, FormCntMax)]);
             Console.WriteLine("\n結果：" + result + "\n");
         }
     }
