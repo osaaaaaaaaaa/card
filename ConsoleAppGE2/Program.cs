@@ -36,19 +36,23 @@ namespace ConsoleAppGE2
                     isSuccess = int.TryParse(Console.ReadLine(), out int selectNum);    // 入力内容をintに変換
 
                     // 正しく入力できた && やめる場合
-                    if (isSuccess && selectNum == 0)
+                    if (isSuccess && selectNum == 0 || selectNum == 1)
                     {
-                        isEnd = true;
+                        switch (selectNum)
+                        {
+                            case 0:
+                                isEnd = true;
+                                break;
+                            case 1:
+                                Console.Clear();
+                                break;
+                        }
                     }
                     // 正しく入力できていない場合
-                    else if(!isSuccess)
+                    else
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("\n*** ERROR ***\n");
-                    }
-                    else
-                    {
-                        Console.Write("\n\n################################################\n\n\n");
                     }
                 }
             }

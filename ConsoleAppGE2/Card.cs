@@ -9,6 +9,10 @@ namespace ConsoleAppGE2
 {
     internal class Card
     {
+        // 入力可能範囲の設定
+        const int inputNumMin = 1;
+        const int inputNumMax = 13;
+
         // 入力情報
         public List<int> numbers { get; private set; } = new List<int>();
 
@@ -28,14 +32,16 @@ namespace ConsoleAppGE2
             while (true)
             {
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.Write("[{0}]１～４の数字を入力してください   > ",i);
+                Console.Write("[{0}]{1}～{2}の数字を入力してください  >> ",i, inputNumMin,inputNumMax);
                 bool isSuccess = int.TryParse(Console.ReadLine(), out int inputNum);
 
-                if (isSuccess && inputNum > 0 && inputNum < 5)
+                // 正しく入力できている場合
+                if (isSuccess && inputNum >= inputNumMin && inputNum <= inputNumMax)
                 {
                     numbers.Add(inputNum);
                     break;
                 }
+                // 入力内容に異常がある場合
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -91,7 +97,8 @@ namespace ConsoleAppGE2
                 i++;
             }
 
-            Console.WriteLine("結果：" + result);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("\n結果：" + result + "\n");
         }
     }
 }
